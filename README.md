@@ -1,4 +1,4 @@
-# -real-estate-firm-web-interface
+# real-estate-firm-web-interface
 This is a webapp project designed to be accessed by the database manager of a real estate firm. The various pages on the webapp support thorough CRUD functionality while also clearly presenting the data.
 
 # Web App UI and Functionality
@@ -79,3 +79,8 @@ The database properties data is displayed (READ). A new property can be added (C
 
 
 The database property_types data is displayed (READ). A new property type can be added (CREATE).
+
+# Entity Relationship (ER) Diagram for the Database
+
+![ER Diagram](https://user-images.githubusercontent.com/44763668/185908674-007d167b-9c3c-4b62-a882-72c24d6cefa7.png)
+
