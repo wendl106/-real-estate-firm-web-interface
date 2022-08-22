@@ -1,0 +1,130 @@
+{{!-- Create a table --}}
+<table id="client-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.Client}}</td>
+            <td>{{this.Name}}</td>
+            {{!-- clients.type is NULLable, so conditional needs to check before displaying --}}
+            {{#if this.Type}}
+            <td>{{this.Type}}</td>
+            {{else}}
+            <td>Unknown</td>
+            {{!-- clients.agent_id is NULLable, so conditional needs to check before displaying --}}
+            {{/if}}
+            {{#if this.Agent}}
+            <td>{{this.Agent}}</td>
+            {{else}}
+            <td>Unknown</td>
+            {{/if}}
+            <td class="button"><button onclick="deleteClient({{this.Client}})">Delete Client</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{!-- <script src="./js/delete_client.js"></script> --}}
+
+<!-- /views/index.hbs -->
+<div class="crud-option">
+<h2>Add New Client Information</h2>
+<p>To add a new client, please enter their information below</p>
+<form id="add-client-form" method="POST" action="/add-client-form">
+    <label for="input-name">Name: </label>
+    <input type="text" name="input-name" id="input-name" required>
+    
+    <label for="input-type">Type: </label>
+        <select name="input-type" id="input-type">
+            <option value="">Select a Client Type</option>
+            {{#each client_types}}
+            <option value="{{this.id}}">{{this.Type}}</option>
+            {{/each}}
+        </select>
+
+    <label for="input-agent">Agent: </label>
+        <select name="input-agent" id="input-agent">
+            <option value="">Select an Agent</option>
+            {{#each agents}}
+            <option value="{{this.Agent}}">{{this.Name}}</option>
+            {{/each}}
+        </select>
+
+    <input type="submit">
+</form>
+</div>
+
+<div class="crud-option">
+<h2>Search for a Client</h2>
+<p>Search by a client's full or partial name</p>
+<form id="search-client-html" method='GET' action='/'>
+    <label for="input-name">Search Name: </label>
+    <input type="text" name="name" id="input-name-html-search">
+    
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+</div>
+
+<div class="crud-option">
+<h2>Search for Clients of an Agent</h2>
+<p>Find Clients By Agent Name</p>
+<form id="search-client-by-agent-html" method='GET' action='/'>
+    <label for="input-agent">Agent Name: </label>
+    <select name="agent" id="input-agent-name-html-search">
+        <option value="">Select an Agent</option>
+        {{#each agents}}
+        <option value="{{this.Agent}}">{{this.Name}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+    <a href='/'><button>Reset</button></a>
+</form>
+</div>
+
+<div class="crud-option">
+<h2>Update A Client's Agent</h2>
+<p>To update a specific client's agent, find the client and then select their new agent</p>
+<form id="update-client-form-ajax">
+
+    <label for="input-name">Client Name: </label>
+    <select name="input-name" id="mySelect">
+        <option value="test">Select a Client</option>
+        {{#each data}}
+        <option value="{{this.Client}}">{{this.Name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-agent">Agent Name: </label>
+    <select name="input-agent" id="input-agent-update">
+        <option>Select an Agent</option>
+        <option value="">No Agent</option>
+        {{#each agents}}
+        <option value="{{this.Agent}}">{{this.Name}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+
+</form>
+</div>
+
+<script src="./js/update_client.js"></script>
+<script src="./js/delete_client.js"></script>
+
+{{!-- Some code borrowed from https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}

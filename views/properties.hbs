@@ -1,0 +1,92 @@
+{{!-- Create a table --}}
+<table id="properties-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.Property}}</td>
+            <td>{{this.Address}}</td>
+            <td>{{this.City}}</td>
+            {{!-- --}}
+            {{#if this.[Year Built]}}
+            <td>{{this.[Year Built]}}</td>
+            {{else}}
+            <td>Unknown</td>
+            {{/if}}
+            {{!-- --}}
+            {{#if this.[Floor Area]}}
+            <td>{{this.[Floor Area]}}
+            {{else}}
+            <td>Unknown</td>
+            {{/if}}
+            {{#if this.Listed}}
+            <td>{{this.Listed}}</td>
+            {{else}}
+            <td>Unknown</td>
+            {{/if}}
+            {{!-- --}}
+            {{#if this.[Type]}}
+            <td>{{this.[Type]}}</td>
+            {{else}}
+            <td>Unknown</td>
+            {{/if}}
+            {{!-- <td class="button"><button onclick="deleteProperty({{this.Property}})">Delete Property</button></td> --}}
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div class="crud-option">
+<h2>Add New Property Information</h2>
+<p>To add a new property, please enter its information below</p>
+<form id="add-property-form" method="POST" action="/add-property-form">
+    <label for="input-address">Address: </label>
+    <input type="text" name="input-address" id="input-address" required>
+    
+    <label for="input-city">City: </label>
+    <input type="text" name="input-city" id="input-city" required>
+
+    <label for="input-year">Year Built: </label>
+    <input type="number" min="1880" max="2022" name="input-year" id="input-year">
+
+    <br>
+
+    <label for="input-floor">Floor Space: </label>
+    <input type="number" min="100" name="input-floor" id="input-floor">
+
+    <label for="input-type">Property Type ID: </label>
+    <select name="input-type" id="input-type" required>
+	    <option value ="">Select a Property Type</option>
+	    {{#each property_types}}
+	    <option value="{{this.property_type_id}}">{{this.description}}</option>
+	    {{/each}}
+	</select>
+
+    <label for="input-listed">Listed: </label>
+	<select name="input-listed" id="select-listed" required>
+        <option value="">Select if Property is Listed or Not</option>
+	    {{#each listing_types}}
+	    <option value="{{this.id}}">{{this.description}}</option>
+	    {{/each}}
+	</select>
+
+    <input type="submit">
+</form>
+</div>

@@ -1,0 +1,72 @@
+{{!-- Create a table --}}
+<table id="sales-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.ID}}</td>
+            {{#if this.[Sale Date]}}
+            <td>{{this.[Sale Date]}}</td>
+            {{else}}
+            <td>Currently Listed</td>
+            {{/if}}
+            <td>{{this.Price}}</td>
+            {{#if this.Agent}}
+            <td>{{this.Agent}}</td>
+            {{else}}
+            <td>-</td>
+            {{/if}}
+            <td>{{this.Property}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div class="crud-option">
+<h2>Add New Sale</h2>
+<p>To add a new sale, please enter its information below. For a current listing, the date is left blank.</p>
+<form id="add-sale-form" method="POST" action="/add-sale-form">
+    <label for="input-date">Date: </label>
+    <input type="date" min="1980-01-01" max="2022-12-31" name="input-date" id="input-date">
+
+    <label for="input-price">Price: </label>
+    <input type="number" step="0.01" min="50000" name="input-price" id="input-price" required>
+
+    <label for="input-agent">Agent: </label>
+        <select name="input-agent" id="input-agent">
+            <option value="">Select an Agent</option>
+            {{#each agents}}
+            <option value="{{this.agent_id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+
+    <label for="input-property">Property: </label>
+        <select name="input-property" id="input-property" required>
+            <option value="">Select an Property</option>
+            {{#each properties}}
+            <option value="{{this.property_id}}">{{this.address}}</option>
+            {{/each}}
+        </select>
+
+    <input type="submit">
+</form>
+</div>
+
+{{!-- Some code borrowed from https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}

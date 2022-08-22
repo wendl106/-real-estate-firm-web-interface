@@ -1,0 +1,30 @@
+<!-- main.hbs-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Real Estate Pros</title>
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+</head>
+<body>
+    <div class="navbar">
+        <a class="active" href="/">Clients</a>
+        <a href="/agents">Agents</a>
+        <a href="/agent-has-client-types">Agent Has Client Types</a>
+        <a href="/client-types">Client Types</a>
+        <a href="/sales">Sales</a>
+        <a href="/client-sales">Client Sales</a>
+        <a href="/properties">Properties</a>
+        <a href="/property-types">Property Types</a>
+    </div>
+    {{!-- Navbar code partially comes from https://www.w3schools.com/howto/howto_js_topnav.asp --}}
+    {{{body}}}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<footer>
+    ©2022 Cody McConnell and Michael Wendland - Real Estate Pros
+</footer>
+</body>
+</html>
+
+{{!-- Some code borrowed from https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}

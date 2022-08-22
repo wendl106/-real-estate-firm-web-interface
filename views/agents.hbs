@@ -1,0 +1,50 @@
+{{!-- Create a table --}}
+<table id="agents-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.Agent}}</td>
+            <td>{{this.Name}}</td>
+            <td>{{this.Location}}</td>
+            <td>{{this.[Year to Date Sales]}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div class="crud-option">
+<h2>Add New Agent</h2>
+<p>To add a new agent, please enter their information below</p>
+<form id="add-agent-form" method="POST" action="/add-agent-form">
+    <label for="input-name">Name: </label>
+    <input type="text" name="input-name" id="input-name" required>
+    
+    <label for="input-location">Location: </label>
+    <input type="text" name="input-location" id="input-location" required>
+
+    <label for="input-ytd">Year to Date Sales: </label>
+    <input type="number" step="0.01" min="0" name="input-ytd" id="input-ytd">
+
+    <input type="submit">
+</form>
+</div>
+
+{{!-- Some code borrowed from https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}

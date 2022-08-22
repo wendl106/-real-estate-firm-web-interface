@@ -1,0 +1,80 @@
+<table id="agent-has-client-types-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.ID}}</td>
+            <td>{{this.Agent}}</td>
+            <td>{{this.[Client Type]}}</td>
+            <td class="button"><button onclick="deleteAgentHasClient({{this.ID}})">Delete Agent/Client Type Pairing</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div class="crud-option">
+<h2>Add New Client Type to Agent Information</h2>
+<p>To add a new Client Type to an Agent, please enter the Client Type and which Agent it should be added to.</p>
+<form id="add-agent-has-client-type-form" method="POST" action="/add-agent-has-client-type-form">
+    <label for="input-name">Client Type: </label>
+      <select name="input-type" id="input-type">
+        <option value="">Select a Client Type</option>
+          {{#each client_types}}
+          <option value="{{this.client_type_id}}">{{this.description}}</option>
+          {{/each}}
+        </select>
+    <label for="input-agent">Agent: </label>
+      <select name="input-agent" id="input-agent">
+        <option value="">Select an Agent</option>
+          {{#each agents}}
+          <option value="{{this.Agent}}">{{this.Name}}</option>
+          {{/each}}
+        </select>
+    <input type="submit">
+</form>
+</div>
+
+<div class="crud-option">
+<h2>Update An Agent's Client Types</h2>
+<p>Select an ID to update</p>
+<form id="update-agent-has-client-types-form-ajax">
+
+    <label for="input-id">Agent/Client Type ID: </label>
+    <select name="input-id" id="mySelect">
+        <option value="test">Select an ID</option>
+        {{#each data}}
+        <option value="{{this.ID}}">{{this.ID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-client-type">Client Types: </label>
+    <select name="input-client-type" id="input-client-type-update">
+        <option>Select A Client Type</option>
+        {{#each client_types}}
+        <option value="{{this.client_type_id}}">{{this.description}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+
+</form>
+</div>
+
+<script src='./js/update_agent_has_client_types.js'></script>
+<script src="./js/delete_agent_has_client_types.js"></script>

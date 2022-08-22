@@ -1,0 +1,42 @@
+{{!-- Create a table --}}
+<table id="property-types-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.ID}}</td>
+            <td>{{this.Description}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div class="crud-option">
+<h2>Add New Property Type</h2>
+<p>To add a new property type, please enter the information below</p>
+<form id="add-property-type-form" method="POST" action="/add-property-type-form">
+    <label for="input-description">Description: </label>
+    <input type="text" name="input-description" id="input-description" required>
+
+    <input type="submit">
+</form>
+</div>
+
+{{!-- Some code borrowed from https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}

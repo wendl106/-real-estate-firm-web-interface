@@ -1,0 +1,67 @@
+{{!-- Create a table --}}
+<table id="client-sales-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.ID}}</td>
+            <td>{{this.[Sale ID]}}</td>
+            {{#if this.[Sale Date]}}
+            <td>{{this.[Sale Date]}}</td>
+            {{else}}
+            <td>Currently Listed</td>
+            {{/if}}
+            <td>{{this.Address}}</td>
+            <td>{{this.[Client ID]}}</td>
+            <td>{{this.[Client Name]}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<div class="crud-option">
+<h2>Add New Client Sale</h2>
+<p>To add a new client sale, please enter the information below. Note that a client can only be matched to a sale if it's already recorded in the Sales page</p>
+<form id="add-client-sale-form" method="POST" action="/add-client-sale-form">
+
+    <label for="input-date">Sales Date: </label>
+    <input type="date" min="1980-01-01" max="2022-12-31" name="input-date" id="input-date">
+
+    <label for="input-property">Property: </label>
+        <select name="input-property" id="input-property" required>
+            <option value="">Select an Property</option>
+            {{#each properties}}
+            <option value="{{this.property_id}}">{{this.address}}</option>
+            {{/each}}
+        </select>
+
+    <label for="input-client">Client: </label>
+        <select name="input-client" id="input-client" required>
+            <option value="">Select a Client</option>
+            {{#each clients}}
+            <option value="{{this.client_id}}">{{this.name}}</option>
+            {{/each}}
+        </select>
+
+    <input type="submit">
+</form>
+</div>
+
+{{!-- Some code borrowed from https://github.com/osu-cs340-ecampus/nodejs-starter-app --}}
